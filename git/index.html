@@ -17,7 +17,7 @@
 
   <script>
     async function play(choice) {
-      const res = await fetch(`https://your-worker-url.com/play?user=${choice}`);
+      const res = await fetch(`https://rockpaper.hwar91387.workers.dev/play?user=${choice}`);
       const data = await res.text();
       document.getElementById('result').innerText = data;
     }
