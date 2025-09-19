@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>سنگ، کاغذ، قیچی</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    button { font-size: 20px; margin: 10px; padding: 10px 20px; }
+  </style>
+</head>
+<body>
+  <h1>سنگ، کاغذ، قیچی</h1>
+  <button onclick="play('سنگ')">سنگ</button>
+  <button onclick="play('کاغذ')">کاغذ</button>
+  <button onclick="play('قیچی')">قیچی</button>
+  <p id="result"></p>
+
+  <script>
+    async function play(choice) {
+      const res = await fetch(`https://your-worker-url.com/play?user=${choice}`);
+      const data = await res.text();
+      document.getElementById('result').innerText = data;
+    }
+  </script>
+</body>
+</html>
