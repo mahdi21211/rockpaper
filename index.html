@@ -4,22 +4,55 @@
   <meta charset="UTF-8">
   <title>سنگ، کاغذ، قیچی</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; }
-    button { font-size: 20px; margin: 10px; padding: 10px 20px; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+    }
+    button {
+      font-size: 20px;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #666;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <h1>سنگ، کاغذ، قیچی</h1>
-  <button onclick="play('سنگ')">سنگ</button>
-  <button onclick="play('کاغذ')">کاغذ</button>
-  <button onclick="play('قیچی')">قیچی</button>
-  <p id="result"></p>
+  <h1>🎮 بازی سنگ، کاغذ، قیچی</h1>
+  <p>یکی رو انتخاب کن:</p>
+  <button onclick="play('سنگ')">🪨 سنگ</button>
+  <button onclick="play('کاغذ')">📄 کاغذ</button>
+  <button onclick="play('قیچی')">✂️ قیچی</button>
+
+  <p id="result">نتیجه اینجا نمایش داده می‌شه...</p>
 
   <script>
+    const WORKER_URL = "https://your-worker-url.workers.dev"; // ← اینجا لینک واقعی Worker رو بذار
+
     async function play(choice) {
-      const res = await fetch(`https://rockpaper.hwar91387.workers.dev/play?user=${choice}`);
-      const data = await res.text();
-      document.getElementById('result').innerText = data;
+      try {
+        const res = await fetch(`https://rockpaper.hwar91387.workers.dev/play?user=${choice}`);
+        if (!res.ok) throw new Error("خطا در دریافت پاسخ از سرور");
+        const data = await res.text();
+        document.getElementById('result').innerText = data;
+      } catch (err) {
+        document.getElementById('result').innerText = "❌ ارتباط با سرور برقرار نشد!";
+        console.error(err);
+      }
     }
   </script>
 </body>
